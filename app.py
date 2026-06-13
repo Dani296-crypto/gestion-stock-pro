@@ -28,7 +28,6 @@ menu = st.sidebar.radio(
         "📋 Liste des produits",
         "✏️ Modifier un produit",
         "🗑️ Supprimer un produit"
-        "📋 Liste des produits"
     ]
 )
 

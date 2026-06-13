@@ -98,6 +98,25 @@ div[data-testid="stMetricValue"] {
     font-weight: bold;
 }
 
+/* ====== TITRES DES METRICS ====== */
+div[data-testid="stMetricLabel"] {
+    color: white !important;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* ====== VALEURS DES METRICS ====== */
+div[data-testid="stMetricValue"] {
+    color: white !important;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* ====== DELTA ====== */
+div[data-testid="stMetricDelta"] {
+    color: #cbd5e1 !important;
+}
+                        
 /* ====== DATAFRAME ====== */
 div[data-testid="stDataFrame"] {
     background: white;

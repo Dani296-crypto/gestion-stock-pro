@@ -110,7 +110,35 @@ div[data-testid="stMetricValue"] {
 div[data-testid="stMetricDelta"] {
     color: white !important;
 }
-                        
+
+
+/* ====== LABELS INPUT / SELECTBOX (IMPORTANT) ====== */
+label, 
+div[data-testid="stWidgetLabel"] {
+    color: white !important;
+    font-weight: 500 !important;
+}
+
+/* Text input / selectbox container labels */
+div[data-baseweb="select"] * {
+    color: black !important;
+}
+
+/* INPUT TEXT (champ lui-même) */
+input {
+    color: black !important;
+}
+
+/* PLACEHOLDER */
+input::placeholder {
+    color: #9ca3af !important;
+}
+
+/* SELECTBOX TEXT */
+div[data-baseweb="select"] {
+    color: black !important;
+}
+                                  
 /* ====== DATAFRAME ====== */
 div[data-testid="stDataFrame"] {
     background: white;

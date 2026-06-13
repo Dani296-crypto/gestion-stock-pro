@@ -53,9 +53,25 @@ h1 {
     font-weight: bold;
 }
 
-/* ====== SIDEBAR ====== */
+/* ====== SIDEBAR BACKGROUND ====== */
 section[data-testid="stSidebar"] {
     background-color: #111827;
+}
+
+/* ====== SIDEBAR TEXT ====== */
+section[data-testid="stSidebar"] * {
+    color: white !important;
+    font-weight: 500;
+}
+
+/* ====== RADIO BUTTON (menu) ====== */
+div[data-testid="stSidebar"] label {
+    color: white !important;
+}
+
+/* Hover effet léger */
+div[data-testid="stSidebar"] label:hover {
+    color: #8b5cf6 !important;
 }
 
 /* ====== BOUTONS ====== */

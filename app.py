@@ -103,7 +103,7 @@ div[data-testid="stMetricValue"] {
 
 /* DELTA */
 div[data-testid="stMetricDelta"] {
-    color: #cbd5e1 !important;
+    color: #ffffff !important;
 }
                         
 /* ====== DATAFRAME ====== */

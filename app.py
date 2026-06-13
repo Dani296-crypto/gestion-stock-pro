@@ -111,6 +111,20 @@ st.markdown("""
 st.markdown("---")
 
 # =====================================
+# AFFICHAGE DES MESSAGES
+# =====================================
+
+if "message" in st.session_state:
+    if st.session_state["type"] == "success":
+        st.success(st.session_state["message"])
+    elif st.session_state["type"] == "error":
+        st.error(st.session_state["message"])
+    elif st.session_state["type"] == "warning":
+        st.warning(st.session_state["message"])
+
+    del st.session_state["message"]
+    del st.session_state["type"]
+# =====================================
 # TABLEAU DE BORD
 # =====================================
 
@@ -322,7 +336,14 @@ elif menu == "✏️ Modifier un produit":
                 "Chaussures",
                 "Vêtements",
                 "Accessoires"
-            ]
+            ],
+            index=[
+                "Chaussures",
+                "Vêtements",
+                "Accessoires"
+            ].index(ligne["Catégorie"])
+            if ligne["Catégorie"] in ["Chaussures", "Vêtements", "Accessoires"]
+            else 0
         )
 
         nouveau_prix = st.number_input(
@@ -335,9 +356,7 @@ elif menu == "✏️ Modifier un produit":
             value=int(ligne["Stock"])
         )
 
-        nouveau_total = (
-            nouveau_prix * nouveau_stock
-        )
+        nouveau_total = nouveau_prix * nouveau_stock
 
         st.metric(
             "Nouveau Total",
@@ -363,17 +382,13 @@ elif menu == "✏️ Modifier un produit":
                         ]]
                     )
 
-                    st.success(
-                        "Produit modifié avec succès."
-                    )
-
+                    st.session_state["message"] = "Produit modifié avec succès."
+                    st.session_state["type"] = "success"
                     st.rerun()
 
     else:
+        st.warning("Aucun produit disponible.")
 
-        st.warning(
-            "Aucun produit disponible."
-        )
 
 # =====================================
 # SUPPRIMER UN PRODUIT
@@ -404,15 +419,10 @@ elif menu == "🗑️ Supprimer un produit":
 
                     sheet.delete_rows(i + 1)
 
-                    st.success(
-                        f"{produit} supprimé avec succès."
-                    )
-
+                    st.session_state["message"] = f"{produit} supprimé avec succès."
+                    st.session_state["type"] = "success"
                     st.rerun()
 
     else:
-
-        st.warning(
-            "Aucun produit disponible."
-        )
+        st.warning("Aucun produit disponible.")
 

@@ -14,6 +14,24 @@ st.set_page_config(
 )
 
 # =====================================
+# MENU LATÉRAL
+# =====================================
+
+st.sidebar.title("📦 Gestion Stock Pro")
+
+menu = st.sidebar.radio(
+    "Navigation",
+    [
+        "📊 Tableau de bord",
+        "➕ Ajouter un produit",
+        "🔍 Rechercher un produit",
+        "📋 Liste des produits",
+        "✏️ Modifier un produit",
+        "🗑️ Supprimer un produit"
+    ]
+)
+
+# =====================================
 # STYLE PERSONNALISÉ
 # =====================================
 
@@ -73,6 +91,14 @@ client = gspread.authorize(creds)
 sheet = client.open("GestionStock").worksheet("Feuille 1")
 
 # =====================================
+# RÉCUPÉRATION DES DONNÉES
+# =====================================
+
+data = sheet.get_all_records()
+
+df = pd.DataFrame(data)
+
+# =====================================
 # TITRE
 # =====================================
 
@@ -85,156 +111,306 @@ st.markdown("""
 st.markdown("---")
 
 # =====================================
-# FORMULAIRE
+# TABLEAU DE BORD
 # =====================================
 
-st.subheader("➕ Ajouter un produit")
+if menu == "📊 Tableau de bord":
 
-col1, col2 = st.columns(2)
+    st.header("📈 Tableau de bord")
 
-with col1:
-    nom = st.text_input("Nom du produit")
+    if not df.empty:
 
-with col2:
-    categorie = st.selectbox(
-        "Catégorie",
-        [
-            "Chaussures",
-            "Vêtements",
-            "Accessoires"
-        ]
-    )
+        col1, col2, col3 = st.columns(3)
 
-col3, col4 = st.columns(2)
+        with col1:
+            st.metric(
+                "Nombre de produits",
+                len(df)
+            )
 
-with col3:
-    prix = st.number_input(
-        "Prix",
-        min_value=0.0,
-        format="%.2f"
-    )
+        with col2:
+            st.metric(
+                "Stock total",
+                int(df["Stock"].sum())
+            )
 
-with col4:
-    stock = st.number_input(
-        "Stock",
-        min_value=0,
-        step=1
-    )
+        with col3:
+            st.metric(
+                "Valeur totale du stock",
+                f"{df['Total'].sum():.2f}"
+            )
 
-# =====================================
-# CALCUL DU TOTAL
-# =====================================
+        st.dataframe(
+            df,
+            use_container_width=True
+        )
 
-total = prix * stock
-
-st.markdown("### 📊 Résumé")
-
-c1, c2, c3 = st.columns(3)
-
-with c1:
-    st.metric("Prix", f"{prix:.2f}")
-
-with c2:
-    st.metric("Stock", stock)
-
-with c3:
-    st.metric("Valeur Totale", f"{total:.2f}")
+    else:
+        st.warning("Aucun produit enregistré.")
 
 # =====================================
 # AJOUT PRODUIT
 # =====================================
 
-if st.button("💾 Ajouter le produit"):
+elif menu == "➕ Ajouter un produit":
 
-    if nom.strip() == "":
-        st.error("Veuillez saisir un nom de produit.")
-    else:
+    st.subheader("➕ Ajouter un produit")
 
-        nouvelle_ligne = [
-            nom,
-            categorie,
-            prix,
-            stock,
-            total
-        ]
-
-        sheet.append_row(nouvelle_ligne)
-
-        st.success("✅ Produit ajouté avec succès !")
-
-# =====================================
-# RÉCUPÉRATION DES DONNÉES
-# =====================================
-
-data = sheet.get_all_records()
-
-df = pd.DataFrame(data)
-
-# =====================================
-# TABLEAU DE BORD
-# =====================================
-
-st.markdown("---")
-st.header("📈 Tableau de bord")
-
-if not df.empty:
-
-    col1, col2, col3 = st.columns(3)
+    col1, col2 = st.columns(2)
 
     with col1:
-        st.metric(
-            "Nombre de produits",
-            len(df)
-        )
+        nom = st.text_input("Nom du produit")
 
     with col2:
-        st.metric(
-            "Stock total",
-            int(df["Stock"].sum())
+        categorie = st.selectbox(
+            "Catégorie",
+            [
+                "Chaussures",
+                "Vêtements",
+                "Accessoires"
+            ]
         )
+
+    col3, col4 = st.columns(2)
 
     with col3:
+        prix = st.number_input(
+            "Prix",
+            min_value=0.0,
+            format="%.2f"
+        )
+
+    with col4:
+        stock = st.number_input(
+            "Stock",
+            min_value=0,
+            step=1
+        )
+
+    total = prix * stock
+
+    st.markdown("### 📊 Résumé")
+
+    c1, c2, c3 = st.columns(3)
+
+    with c1:
+        st.metric("Prix", f"{prix:.2f}")
+
+    with c2:
+        st.metric("Stock", stock)
+
+    with c3:
         st.metric(
-            "Valeur totale du stock",
-            f"{df['Total'].sum():.2f}"
+            "Valeur Totale",
+            f"{total:.2f}"
         )
 
+    if st.button("💾 Ajouter le produit"):
+
+        if nom.strip() == "":
+            st.error(
+                "Veuillez saisir un nom de produit."
+            )
+
+        else:
+
+            nouvelle_ligne = [
+                nom,
+                categorie,
+                prix,
+                stock,
+                total
+            ]
+
+            sheet.append_row(
+                nouvelle_ligne
+            )
+
+            st.success(
+                "✅ Produit ajouté avec succès !"
+            )
+
 # =====================================
-# RECHERCHE
+# RECHERCHER UN PRODUIT
 # =====================================
 
-st.markdown("---")
-st.header("🔍 Rechercher un produit")
+elif menu == "🔍 Rechercher un produit":
 
-recherche = st.text_input(
-    "Tapez le nom d'un produit"
-)
+    st.header("🔍 Rechercher un produit")
 
-if recherche:
-
-    resultat = df[
-        df["Nom_du_produit"]
-        .astype(str)
-        .str.contains(
-            recherche,
-            case=False,
-            na=False
-        )
-    ]
-
-    st.dataframe(
-        resultat,
-        use_container_width=True
+    recherche = st.text_input(
+        "Tapez le nom d'un produit"
     )
 
+    if recherche:
+
+        resultat = df[
+            df["Nom_du_produit"]
+            .astype(str)
+            .str.contains(
+                recherche,
+                case=False,
+                na=False
+            )
+        ]
+
+        if resultat.empty:
+
+            st.warning(
+                "Aucun produit trouvé."
+            )
+
+        else:
+
+            st.success(
+                f"{len(resultat)} résultat(s) trouvé(s)"
+            )
+
+            st.dataframe(
+                resultat,
+                use_container_width=True
+            )
+
 # =====================================
-# TABLEAU DES PRODUITS
+# LISTE DES PRODUITS
 # =====================================
 
-st.markdown("---")
-st.header("📋 Liste des produits")
+elif menu == "📋 Liste des produits":
 
-st.dataframe(
-    df,
-    use_container_width=True
-)
+    st.header("📋 Liste des produits")
+
+    if not df.empty:
+
+        st.dataframe(
+            df,
+            use_container_width=True
+        )
+
+    else:
+
+        st.warning(
+            "Aucun produit enregistré."
+        )
+# =====================================
+# MODIFIER UN PRODUIT
+# =====================================
+
+elif menu == "✏️ Modifier un produit":
+
+    st.header("✏️ Modifier un produit")
+
+    if not df.empty:
+
+        produit = st.selectbox(
+            "Choisissez un produit",
+            df["Nom_du_produit"]
+        )
+
+        ligne = df[
+            df["Nom_du_produit"] == produit
+        ].iloc[0]
+
+        nouveau_nom = st.text_input(
+            "Nom du produit",
+            value=ligne["Nom_du_produit"]
+        )
+
+        nouvelle_categorie = st.selectbox(
+            "Catégorie",
+            [
+                "Chaussures",
+                "Vêtements",
+                "Accessoires"
+            ]
+        )
+
+        nouveau_prix = st.number_input(
+            "Prix",
+            value=float(ligne["Prix"])
+        )
+
+        nouveau_stock = st.number_input(
+            "Stock",
+            value=int(ligne["Stock"])
+        )
+
+        nouveau_total = (
+            nouveau_prix * nouveau_stock
+        )
+
+        st.metric(
+            "Nouveau Total",
+            f"{nouveau_total:.2f}"
+        )
+
+        if st.button("💾 Mettre à jour"):
+
+            lignes = sheet.get_all_values()
+
+            for i, row in enumerate(lignes):
+
+                if i > 0 and row[0] == produit:
+
+                    sheet.update(
+                        f"A{i+1}:E{i+1}",
+                        [[
+                            nouveau_nom,
+                            nouvelle_categorie,
+                            nouveau_prix,
+                            nouveau_stock,
+                            nouveau_total
+                        ]]
+                    )
+
+                    st.success(
+                        "Produit modifié avec succès."
+                    )
+
+                    st.rerun()
+
+    else:
+
+        st.warning(
+            "Aucun produit disponible."
+        )
+
+# =====================================
+# SUPPRIMER UN PRODUIT
+# =====================================
+
+elif menu == "🗑️ Supprimer un produit":
+
+    st.header("🗑️ Supprimer un produit")
+
+    if not df.empty:
+
+        produit = st.selectbox(
+            "Choisissez un produit à supprimer",
+            df["Nom_du_produit"]
+        )
+
+        st.warning(
+            f"Vous êtes sur le point de supprimer : {produit}"
+        )
+
+        if st.button("❌ Supprimer définitivement"):
+
+            lignes = sheet.get_all_values()
+
+            for i, ligne in enumerate(lignes):
+
+                if i > 0 and ligne[0] == produit:
+
+                    sheet.delete_rows(i + 1)
+
+                    st.success(
+                        f"{produit} supprimé avec succès."
+                    )
+
+                    st.rerun()
+
+    else:
+
+        st.warning(
+            "Aucun produit disponible."
+        )

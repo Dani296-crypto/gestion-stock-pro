@@ -41,37 +41,23 @@ st.markdown("""
 /* ====== GLOBAL ====== */
 .stApp {
     background: linear-gradient(135deg, #0f172a, #1e293b);
-    color: white;
+    color: white !important;
     font-family: 'Segoe UI';
 }
 
-/* ====== TITRE ====== */
-h1 {
-    text-align: center;
-    color: #ffffff;
-    font-size: 36px;
-    font-weight: bold;
+/* ====== TITRES ====== */
+h1, h2, h3 {
+    color: white !important;
 }
 
-/* ====== SIDEBAR BACKGROUND ====== */
+/* ====== SIDEBAR ====== */
 section[data-testid="stSidebar"] {
     background-color: #111827;
 }
 
-/* ====== SIDEBAR TEXT ====== */
 section[data-testid="stSidebar"] * {
     color: white !important;
     font-weight: 500;
-}
-
-/* ====== RADIO BUTTON (menu) ====== */
-div[data-testid="stSidebar"] label {
-    color: white !important;
-}
-
-/* Hover effet léger */
-div[data-testid="stSidebar"] label:hover {
-    color: #8b5cf6 !important;
 }
 
 /* ====== BOUTONS ====== */
@@ -92,14 +78,24 @@ div[data-testid="stSidebar"] label:hover {
     background: linear-gradient(135deg, #4f46e5, #7c3aed);
 }
 
-/* ====== METRICS ====== */
+/* ====== METRICS (IMPORTANT FIX) ====== */
 div[data-testid="stMetric"] {
     background: rgba(255,255,255,0.08);
     padding: 18px;
     border-radius: 15px;
     text-align: center;
-    color: white;
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+/* TEXTE METRICS EN BLANC */
+div[data-testid="stMetricLabel"] {
+    color: #cbd5e1 !important;
+}
+
+div[data-testid="stMetricValue"] {
+    color: white !important;
+    font-size: 24px;
+    font-weight: bold;
 }
 
 /* ====== DATAFRAME ====== */

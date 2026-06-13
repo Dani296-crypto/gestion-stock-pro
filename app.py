@@ -38,35 +38,59 @@ menu = st.sidebar.radio(
 st.markdown("""
 <style>
 
+/* ====== GLOBAL ====== */
 .stApp {
-    background-color: blue;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+    font-family: 'Segoe UI';
 }
 
+/* ====== TITRE ====== */
 h1 {
     text-align: center;
+    color: #ffffff;
+    font-size: 36px;
+    font-weight: bold;
 }
 
+/* ====== SIDEBAR ====== */
+section[data-testid="stSidebar"] {
+    background-color: #111827;
+}
+
+/* ====== BOUTONS ====== */
 .stButton > button {
-    background-color: #C62828;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
     color: white;
-    border-radius: 10px;
+    border-radius: 12px;
     height: 3em;
     width: 100%;
     font-size: 16px;
     font-weight: bold;
+    border: none;
+    transition: 0.3s;
 }
 
 .stButton > button:hover {
-    background-color: #8A2BE2;
-    color: white;
+    transform: scale(1.02);
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
 }
 
+/* ====== METRICS ====== */
 div[data-testid="stMetric"] {
-    background-color: black;
-    padding: 15px;
-    border-radius: 10px;
-    color: white;
+    background: rgba(255,255,255,0.08);
+    padding: 18px;
+    border-radius: 15px;
     text-align: center;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+/* ====== DATAFRAME ====== */
+div[data-testid="stDataFrame"] {
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
 }
 
 </style>
@@ -109,6 +133,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown("---")
+st.caption("📊 Application de gestion de stock moderne et intuitive")
 
 # =====================================
 # AFFICHAGE DES MESSAGES

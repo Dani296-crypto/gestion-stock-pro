@@ -78,7 +78,7 @@ section[data-testid="stSidebar"] * {
     background: linear-gradient(135deg, #4f46e5, #7c3aed);
 }
 
-/* ====== METRICS CLEAN FIX ====== */
+/* ====== METRICS ULTRA FORCE FIX ====== */
 div[data-testid="stMetric"] {
     background: rgba(255,255,255,0.08);
     padding: 18px;
@@ -87,14 +87,19 @@ div[data-testid="stMetric"] {
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-/* LABEL (Nom du metric) */
+/* FORCE TOUT TEXTE DANS METRIC */
+div[data-testid="stMetric"] * {
+    color: white !important;
+}
+
+/* LABEL */
 div[data-testid="stMetricLabel"] {
     color: white !important;
     font-size: 16px !important;
     font-weight: 600 !important;
 }
 
-/* VALEUR (chiffres) */
+/* VALUE */
 div[data-testid="stMetricValue"] {
     color: white !important;
     font-size: 28px !important;
@@ -103,7 +108,7 @@ div[data-testid="stMetricValue"] {
 
 /* DELTA */
 div[data-testid="stMetricDelta"] {
-    color: #ffffff !important;
+    color: white !important;
 }
                         
 /* ====== DATAFRAME ====== */

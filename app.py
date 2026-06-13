@@ -78,7 +78,7 @@ section[data-testid="stSidebar"] * {
     background: linear-gradient(135deg, #4f46e5, #7c3aed);
 }
 
-/* ====== METRICS (IMPORTANT FIX) ====== */
+/* ====== METRICS CLEAN FIX ====== */
 div[data-testid="stMetric"] {
     background: rgba(255,255,255,0.08);
     padding: 18px;
@@ -87,32 +87,21 @@ div[data-testid="stMetric"] {
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-/* TEXTE METRICS EN BLANC */
-div[data-testid="stMetricLabel"] {
-    color: #cbd5e1 !important;
-}
-
-div[data-testid="stMetricValue"] {
-    color: white !important;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-/* ====== TITRES DES METRICS ====== */
+/* LABEL (Nom du metric) */
 div[data-testid="stMetricLabel"] {
     color: white !important;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 16px !important;
+    font-weight: 600 !important;
 }
 
-/* ====== VALEURS DES METRICS ====== */
+/* VALEUR (chiffres) */
 div[data-testid="stMetricValue"] {
     color: white !important;
-    font-size: 28px;
-    font-weight: bold;
+    font-size: 28px !important;
+    font-weight: bold !important;
 }
 
-/* ====== DELTA ====== */
+/* DELTA */
 div[data-testid="stMetricDelta"] {
     color: #cbd5e1 !important;
 }

@@ -78,7 +78,7 @@ section[data-testid="stSidebar"] * {
     background: linear-gradient(135deg, #4f46e5, #7c3aed);
 }
 
-/* ====== METRICS ULTRA FORCE FIX ====== */
+/* ====== METRICS GLOBAL FIX (TOUTES PAGES) ====== */
 div[data-testid="stMetric"] {
     background: rgba(255,255,255,0.08);
     padding: 18px;
@@ -87,7 +87,7 @@ div[data-testid="stMetric"] {
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-/* FORCE TOUT TEXTE DANS METRIC */
+/* FORCE TOUT DANS LES METRICS (IMPORTANT) */
 div[data-testid="stMetric"] * {
     color: white !important;
 }

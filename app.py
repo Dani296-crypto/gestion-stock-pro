@@ -25,9 +25,13 @@ menu = st.sidebar.radio(
         "📊 Tableau de bord",
         "➕ Ajouter un produit",
         "🔍 Rechercher un produit",
+<<<<<<< HEAD
         "📋 Liste des produits",
         "✏️ Modifier un produit",
         "🗑️ Supprimer un produit"
+=======
+        "📋 Liste des produits"
+>>>>>>> f652f1e4a783faca8205b641511050b59b60f1e6
     ]
 )
 
@@ -291,6 +295,7 @@ elif menu == "📋 Liste des produits":
         st.warning(
             "Aucun produit enregistré."
         )
+
 # =====================================
 # MODIFIER UN PRODUIT
 # =====================================
@@ -414,3 +419,4 @@ elif menu == "🗑️ Supprimer un produit":
         st.warning(
             "Aucun produit disponible."
         )
+
